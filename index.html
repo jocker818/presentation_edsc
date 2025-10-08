@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodus - ENSEA Data Science Club</title>
+    <style>
+:root {
+    --primary-color: #092d60;
+    --secondary-color: #0b2167;
+    --accent-color: #327fdd;
+    --light-color: #eaeef2;
+    --dark-color: #0a4f93;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.logo span {
+    color: var(--accent-color);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Menu burger pour mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+.slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 2rem;
+    margin-top: 5rem;
+}
+
+.club-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.club-logo {
+    width: 150px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+.campaign-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #d62f3c;
+}
+
+section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.card p {
+    margin-bottom: 1.5rem;
+}
+
+.card ul {
+    list-style-position: inside;
+    margin-left: 0.5rem;
+}
+
+.card ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   CARROUSELS DES CARTES D'ACTIVITÉS
+   ======================================== */
+
+.card-carousel {
+    position: relative;
+}
+
+.card-carousel-wrapper {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.card-carousel-slide.active {
+    opacity: 1;
+}
+
+.card-carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.card-carousel-btn {
+    pointer-events: all;
+    background-color: rgba(9, 45, 96, 0.7);
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-carousel-btn:hover {
+    background-color: rgba(9, 45, 96, 0.9);
+    transform: scale(1.1);
+}
+
+.card-carousel-btn:active {
+    transform: scale(0.95);
+}
+
+.card-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background-color: rgba(9, 45, 96, 0.05);
+}
+
+.card-carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #d1d5db;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.card-carousel-dots .dot:hover {
+    background-color: #9ca3af;
+    transform: scale(1.2);
+}
+
+.card-carousel-dots .dot.active {
+    background-color: var(--accent-color);
+    width: 24px;
+    border-radius: 5px;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--primary-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 4px solid var(--accent-color);
+    top: 15px;
+    right: -13px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    left: 50%;
+}
+
+.right::after {
+    left: -13px;
+}
+
+.timeline-content {
+    padding: 20px;
+    background-color: white;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.timeline-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.team-card .card-img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    border: 4px solid var(--primary-color);
+    object-fit: cover;
+    background-position: center top;
+}
+
+.team-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-card h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.team-card p {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.program-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.program-tab {
+    padding: 1rem 2rem;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.program-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.program-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.program-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.module-accordion {
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.module-header {
+    display: flex;
+    align-items: center;
+    background-color: #e9ecef;
+    padding: 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.module-header:hover {
+    background-color: #dee2e6;
+}
+
+.module-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 1rem;
+}
+
+.module-title {
+    font-weight: 600;
+    color: var(--dark-color);
+    flex: 1;
+}
+
+.module-header::after {
+    content: '+';
+    position: absolute;
+    right: 1rem;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.module-header.active::after {
+    content: '−';
+}
+
+.module-body {
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.module-content {
+    padding: 1.5rem;
+}
+
+.module-content ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+.module-content li {
+    margin-bottom: 0.5rem;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tool-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.5rem;
+}
+
+.tool-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ========================================
+   STYLES POUR LA SECTION GADGETS
+   ======================================== */
+
+#gadgets {
+    padding: 4rem 0;
+}
+
+.gadgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.gadget-item {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gadget-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gadget-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.gadget-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.gadget-image {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tshirt-carousel {
+    position: relative;
+}
+
+.tshirt-slideshow {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.tshirt-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.tshirt-slide.active {
+    opacity: 1;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    pointer-events: none;
+}
+
+.carousel-btn {
+    pointer-events: all;
+    background-color: rgba(9, 45, 96, 0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(9, 45, 96, 0.9);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: rgba(9, 45, 96, 0.05);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #d1d5db;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot:hover {
+    background-color: #9ca3af;
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background-color: var(--accent-color);
+    width: 30px;
+    border-radius: 6px;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+footer .logo {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 968px) {
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .program-tab {
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .gadgets-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .card-carousel-wrapper {
+        height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+        background-color: var(--primary-color);
+        padding: 1rem 0;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    nav.mobile-nav-active ul {
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0.5rem 0;
+        text-align: center;
+        width: 100%;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 0.8rem;
+        width: 100%;
+    }
+    
+    .nav-container {
+        flex-wrap: wrap;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .club-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .club-logo {
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+    
+    .campaign-title {
+        font-size: 1.5rem;
+    }
+    
+    .timeline::after {
+        left: 31px;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    
+    .timeline-item::after {
+        left: 18px;
+    }
+    
+    .left, .right {
+        left: 0;
+    }
+    
+    .right::after {
+        left: 18px;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tools-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .hero {
+        min-height: 60vh;
+    }
+    
+    .slide {
+        background-size: cover;
+        background-position: center center;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .gadgets-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gadget-image,
+    .tshirt-slideshow {
+        height: 250px;
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .card-carousel-wrapper {
+        height: 200px;
+    }
+    
+    .card-carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 1rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+    
+    .card-img {
+        height: 180px;
+    }
+    
+    .team-card .card-img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .program-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .hero {
+        min-height: 50vh;
+    }
+    
+    .slide {
+        background-size: 100% 100%;
+    }
+    
+    .gadget-image,
+    .tshirt-slideshow {
+        height: 200px;
+    }
+    
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    
+    .carousel-controls {
+        padding: 0 0.5rem;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .dot.active {
+        width: 24px;
+    }
+    
+    .card-carousel-wrapper {
+        height: 180px;
+    }
+    
+    .card-carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+    
+    .card-carousel-dots .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .card-carousel-dots .dot.active {
+        width: 20px;
+    }
+}
+    </style>
+   
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">ENSEA<span> DATA SCIENCE CLUB</span></div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#bureau">Membres du Bureau</a></li>
+                    <li><a href="#vision">Notre Bureau</a></li>
+                    <li><a href="#programme">Programme</a></li>
+                    <li><a href="#activites">Activités</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="slideshow">
+            <div class="slide active" style="background-image: url('groupe_el.webp');"></div>
+            <div class="slide" style="background-image: url('2.webp');"></div>
+            <div class="slide" style="background-image: url('groupe_as.webp');"></div>
+            <div class="slide" style="background-image: url('3.webp');"></div>
+            <div class="slide" style="background-image: url('4.webp');"></div>
+            <div class="slide" style="background-image: url('5.webp');"></div>
+            <div class="slide" style="background-image: url('6.webp');"></div>
+            <div class="slide" style="background-image: url('1.webp');"></div>
+
+        </div>
+        <div class="overlay"></div>
+        <div class="club-header">
+            <img src="data.webp" alt="Logo du club" class="club-logo">
+            <p class="campaign-title">PRESENTATION DU CLUB DE DATA SCIENCE</p>
+        </div> 
+        <div class="hero-content">
+            <h1>Nodus</h1>
+            <p>Le lien entre les esprits curieux et le monde de la data</p>
+            <a href="#programme" class="btn">Découvrir notre programme</a>
+        </div>
+    </section>
+
+    <section id="bureau" class="container">
+        <div class="section-title">
+            <h2>Membres du Bureau</h2>
+        </div>
+        <div class="grid">
+            <!-- Président -->
+            <div class="card team-card">
+                <div class="card-img" style="background-image: url('nathan.webp');"></div>
+                <div class="card-content">
+                    <h3>KINDO Nathan</h3>
+                    <p>Président</p>
+                </div>
+            </div>
+            
+            <!-- Vice-Président -->
+            <div class="card team-card">
+                <div class="card-img" style="background-image: url('fred.webp');"></div>
+                <div class="card-content">
+                    <h3>NJOMANI Fred</h3>
+                    <p>Secrétaire Général</p>
+                </div>
+            </div>
+            
+            <!-- Responsable à la formation -->
+            <div class="card team-card">
+                <div class="card-img" style="background-image: url('abi.webp');"></div>
+                <div class="card-content">
+                    <h3>ABI Manoah</h3>
+                    <p>Responsable à la formation</p>
+                </div>
+            </div>
+            
+            <!-- Responsable aux finances -->
+            <div class="card team-card">
+                <div class="card-img" style="background-image: url('gloria.webp');"></div>
+                <div class="card-content">
+                    <h3>KOUAME Gloria</h3>
+                    <p>Responsable aux finances</p>
+                </div>
+            </div>
+            
+            <!-- Responsable Communication -->
+            <div class="card team-card">
+                <div class="card-img" style="background-image: url('franck.webp');"></div>
+                <div class="card-content">
+                    <h3>FOGAING Franck</h3>
+                    <p>Responsable à la Communication</p>
+                </div>
+            </div>
+            
+            <!-- Responsable à l'Organisation -->
+            <div class="card team-card">
+                <div class="card-img" style="background-image: url('aicha.webp');"></div>
+                <div class="card-content">
+                    <h3>COULIBALY Aïcha</h3>
+                    <p>Responsable à l'Organisation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="container">
+        <div class="section-title">
+            <h2>Notre Club</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img" style="background-image: url('nexus.webp');"></div>
+                <div class="card-content">
+                    <h3>ENSEA DATA SCIENCE CLUB ? </h3>
+                    <p>L'EDSC est l'un des clubs de l'école Nationale Supérieure de Statistique et d'Economie Appliquée (ENSEA) d'Abidjan. Ce club est Chargé de vulgariser la Data Science auprès des étudiants de l'ENSEA en leur proposant des formations, des conférences des compétitions et bien d'autres activités autour de cette discipline.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('vision\ \(1\).webp');"></div>
+                <div class="card-content">
+                    <h3>Vision</h3>
+                    <p>Faire du club un espace collaboratif et un environnement où chaque personne peut trouver sa part de connaissances.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('objective.webp');"></div>
+                <div class="card-content">
+                    <h3>Nos Objectifs</h3>
+                    <ul>
+                        <li>Rendre la data science accessible à travers les formations</li>
+                        <li>Déclencher une motivation particulière des élèves pour la data à travers les challenges</li>
+                        <li>Favoriser la collaboration entre les membres</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programme" style="background-color: #f0f4f8;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Programme de Formation</h2>
+            </div>
+            
+            <!-- Onglets de niveau stylisés -->
+            <div class="program-tabs">
+                <div class="program-tab active" data-target="niveau1">Niveau 1: Fondations</div>
+                <div class="program-tab" data-target="niveau2">Niveau 2: Avancé</div>
+            </div>
+            
+            <!-- Contenu du niveau 1 -->
+            <div id="niveau1" class="program-content active">
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="python.webp" alt="Python Logo" class="module-icon">
+                        <h3 class="module-title">Module 1: Introduction à Python et à l'Algorithmie</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Bases de Python: types de données, variables, opérations</li>
+                                <li>Structures de contrôle: conditions, boucles</li>
+                                <li>Fonctions et modules</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="pandas.webp" alt="Pandas Logo" class="module-icon">
+                        <h3 class="module-title">Module 2: Manipulation et Visualisation des Données</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Introduction aux bibliothèques Pandas et NumPy</li>
+                                <li>Nettoyage et transformation des données</li>
+                                <li>Visualisation avec Matplotlib et Seaborn</li>
+                                <li>Statistiques descriptives (moyenne, médiane, écart-type, correlation)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="sql.webp" alt="SQL Logo" class="module-icon">
+                        <h3 class="module-title">Module 3: Gestion et Stockage des Données</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Introduction aux bases de données SQL</li>
+                                <li>Lecture et écriture de fichiers CSV, Excel</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="oop.webp" alt="OOP Logo" class="module-icon">
+                        <h3 class="module-title">Module 4: Programmation Orientée Objet (POO) en Data Science</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Classes et objets en Python</li>
+                                <li>Organisation du code pour des projets data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="ml.webp" alt="Machine Learning Logo" class="module-icon">
+                        <h3 class="module-title">Module 5: Introduction au Machine Learning</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Supervised vs Unsupervised Learning</li>
+                                <li>Algorithmes de base: Régression linéaire, k-means, KNN</li>
+                                <li>Utilisation de Scikit-learn pour entraîner un modèle</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="project.webp" alt="Project Logo" class="module-icon">
+                        <h3 class="module-title">Projet de fin de Niveau 1: Analyse Exploratoire de Données</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Étude des tendances d'un marché (ex: analyse des prix sur Jumia)</li>
+                                <li>Visualisation et interprétation des données</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tools-grid">
+                    <div class="tool-item">
+                        <img src="python.webp" alt="Python" class="tool-logo">
+                        <span class="tool-name">Python</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="pandas.webp" alt="Pandas" class="tool-logo">
+                        <span class="tool-name">Pandas</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="numpy.webp" alt="NumPy" class="tool-logo">
+                        <span class="tool-name">NumPy</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="matplot.webp" alt="Matplotlib" class="tool-logo">
+                        <span class="tool-name">Matplotlib</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="seaborn.webp" alt="Seaborn" class="tool-logo">
+                        <span class="tool-name">Seaborn</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="sql.webp" alt="SQL" class="tool-logo">
+                        <span class="tool-name">SQL</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu du niveau 2 -->
+            <div id="niveau2" class="program-content">
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="oop.webp" alt="OOP Logo" class="module-icon">
+                        <h3 class="module-title">Module 1: Programmation Orientée Objet (POO) en Data Science</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Classes et objets en Python</li>
+                                <li>Organisation du code pour des projets data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="ml.webp" alt="Machine Learning Logo" class="module-icon">
+                        <h3 class="module-title">Module 2: Introduction au Machine Learning</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Supervised vs Unsupervised Learning</li>
+                                <li>Algorithmes de base: Régression linéaire, k-means, KNN</li>
+                                <li>Utilisation de Scikit-learn pour entraîner un modèle</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="optimize.webp" alt="Feature Engineering Logo" class="module-icon">
+                        <h3 class="module-title">Module 3: Feature Engineering et Optimisation des Modèles</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Sélection et transformation des variables</li>
+                                <li>Validation des modèles et métriques d'évaluation</li>
+                                <li>Optimisation des hyperparamètres</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="scrapy.webp" alt="Web Scraping Logo" class="module-icon">
+                        <h3 class="module-title">Module 4: Web Scraping et Collecte de Données</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Extraction de données avec BeautifulSoup et Scrapy</li>
+                                <li>Automatisation de la collecte de données</li>
+                                <li>Stockage des données récupérées</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="deploy.webp" alt="Deployment Logo" class="module-icon">
+                        <h3 class="module-title">Module 5: Déploiement d'un Modèle de Machine Learning</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Introduction à Streamlit pour créer une interface interactive</li>
+                                <li>Déploiement d'un modèle sur le web</li>
+                                <li>Présentation et restitution des résultats</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-accordion">
+                    <div class="module-header">
+                        <img src="project.webp" alt="Project Logo" class="module-icon">
+                        <h3 class="module-title">Projet de fin de Niveau 2: Modélisation et Prédiction</h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-content">
+                            <ul>
+                                <li>Développement d'un modèle prédictif (ex: prédiction des prix d'un produit sur Jumia)</li>
+                                <li>Création d'une interface utilisateur avec Streamlit</li>
+                                <li>Combiner Websraping et ML</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tools-grid">
+                    <div class="tool-item">
+                        <img src="scikit.webp" alt="Scikit-learn" class="tool-logo">
+                        <span class="tool-name">Scikit-learn</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="tensor.webp" alt="TensorFlow" class="tool-logo">
+                        <span class="tool-name">TensorFlow</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="r.webp" alt="R" class="tool-logo">
+                        <span class="tool-name">R</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="streamlit.webp" alt="Streamlit" class="tool-logo">
+                        <span class="tool-name">Streamlit</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="scrapy.webp" alt="Scrapy" class="tool-logo">
+                        <span class="tool-name">Scrapy</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="spss.webp" alt="SPSS" class="tool-logo">
+                        <span class="tool-name">SPSS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="activites" class="container">
+        <div class="section-title">
+            <h2>Projets et Activités</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img" style="background-image: url(zindi.webp);"></div>
+                <div class="card-content">
+                    <h3>Challenges Kaggle et Zindi</h3>
+                    <p>Formation sur les challenges Kaggle et Zindi pour préparer les étudiants aux compétitions de data science les plus prestigieuses.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url(challeng.webp);"></div>
+                <div class="card-content">
+                    <h3>Mini Challenges en fin de module</h3>
+                    <p>Mini challenges exceptionnels (à faire) à chaque fin de module dans chaque niveau. Ces challenges seront notés. Et il y'aura des recompenses en fin d'année</p>
+                </div>
+            </div>
+            
+            <!-- Conférences et Collaborations avec carrousel -->
+            <div class="card card-carousel">
+                <div class="card-carousel-wrapper">
+                    <div class="card-carousel-slide active" style="background-image: url('confer.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('conference1.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('conference3.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('conference4.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('conference5.webp');"></div>
+                </div>
+                <div class="card-carousel-controls">
+                    <button class="card-carousel-btn prev-btn" onclick="changeCardSlide('conferences', -1)">&#10094;</button>
+                    <button class="card-carousel-btn next-btn" onclick="changeCardSlide('conferences', 1)">&#10095;</button>
+                </div>
+                <div class="card-carousel-dots">
+                    <span class="dot active" onclick="setCardSlide('conferences', 0)"></span>
+                    <span class="dot" onclick="setCardSlide('conferences', 1)"></span>
+                    <span class="dot" onclick="setCardSlide('conferences', 2)"></span>
+                    <span class="dot" onclick="setCardSlide('conferences', 3)"></span>
+                    <span class="dot" onclick="setCardSlide('conferences', 4)"></span>
+                </div>
+                <div class="card-content">
+                    <h3>Conférences et Collaborations</h3>
+                    <p>Conférences avec des thèmes d'actualités, partages d'expérience et collaborations avec les autres écoles du CAPESA, particulièrement pour les webinars.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img" style="background-image: url(can.webp);"></div>
+                <div class="card-content">
+                    <h3>Modèle de predicition pour la CAN </h3>
+                    <p>Concevoir un modèle pour prédire les resultats de la CAN 2025. Donner les probabiités qu'une équipe gagne un match</p>
+                </div>
+            </div>
+            
+            <!-- Formations avec carrousel -->
+            <div class="card card-carousel">
+                <div class="card-carousel-wrapper">
+                    <div class="card-carousel-slide active" style="background-image: url('forma3.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('formation.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('forma1.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('forma2.webp');"></div>
+                </div>
+                <div class="card-carousel-controls">
+                    <button class="card-carousel-btn prev-btn" onclick="changeCardSlide('formations', -1)">&#10094;</button>
+                    <button class="card-carousel-btn next-btn" onclick="changeCardSlide('formations', 1)">&#10095;</button>
+                </div>
+                <div class="card-carousel-dots">
+                    <span class="dot active" onclick="setCardSlide('formations', 0)"></span>
+                    <span class="dot" onclick="setCardSlide('formations', 1)"></span>
+                    <span class="dot" onclick="setCardSlide('formations', 2)"></span>
+                    <span class="dot" onclick="setCardSlide('formations', 3)"></span>
+                </div>
+                <div class="card-content">
+                    <h3>Formations</h3>
+                    <p>Des formations de qualités pour les membres du club afin de leur donner les bases pour être un bon data scientist</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img" style="background-image: url(challenge.webp);"></div>
+                <div class="card-content">
+                    <h3>Mise en place d'une équipe de recherche</h3>
+                    <p>Un ensemble de personnes sera selectionné pour reflechir et travailler sur des projets pertinents. <br> Ce sera une equipe spécialement pour les projets du club</p>
+                </div>
+            </div>
+            
+            <!-- Interclasse EDSC avec carrousel -->
+            <div class="card card-carousel">
+                <div class="card-carousel-wrapper">
+                    <div class="card-carousel-slide active" style="background-image: url('inter.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('inter1.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('inter3.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('inter4.webp');"></div>
+                    <div class="card-carousel-slide" style="background-image: url('inter5.webp');"></div>
+                </div>
+                <div class="card-carousel-controls">
+                    <button class="card-carousel-btn prev-btn" onclick="changeCardSlide('interclasse', -1)">&#10094;</button>
+                    <button class="card-carousel-btn next-btn" onclick="changeCardSlide('interclasse', 1)">&#10095;</button>
+                </div>
+                <div class="card-carousel-dots">
+                    <span class="dot active" onclick="setCardSlide('interclasse', 0)"></span>
+                    <span class="dot" onclick="setCardSlide('interclasse', 1)"></span>
+                    <span class="dot" onclick="setCardSlide('interclasse', 2)"></span>
+                    <span class="dot" onclick="setCardSlide('interclasse', 3)"></span>
+                    <span class="dot" onclick="setCardSlide('interclasse', 4)"></span>
+                </div>
+                <div class="card-content">
+                    <h3>Interclasse EDSC</h3>
+                    <p>Compétitions opposant les différentes classes de l'école</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img" style="background-image: url(app.webp);"></div>
+                <div class="card-content">
+                    <h3>Projet Data challenge</h3>
+                    <p>Un grand challenge sera lancé et les élèves seront amenés à former des équipes. Ces équipes seront chargées de produire des projets data qui seront évalués. Les meilleurs projets seront recompensés</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gadgets" style="background-color: #f0f4f8;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Gadgets</h2>
+                <p>Montrez votre passion pour la Data Science avec nos produits exclusifs</p>
+            </div>
+            
+            <div class="gadgets-grid">
+                <!-- Tee-shirts avec carrousel -->
+                <div class="gadget-item tshirt-carousel">
+                    <div class="gadget-header">
+                        <h3>Tee-shirts et Polo EDSc</h3>
+                    </div>
+                    <div class="tshirt-slideshow">
+                        <div class="tshirt-slide active" style="background-image: url('blanc1.webp');"></div>
+                        <div class="tshirt-slide" style="background-image: url('blanc2.webp');"></div>
+                        <div class="tshirt-slide" style="background-image: url('tee\ noir.webp');"></div>
+                        <div class="tshirt-slide" style="background-image: url('noir1.webp');"></div>
+                        <div class="tshirt-slide" style="background-image: url('noir2.webp');"></div>
+                         <div class="tshirt-slide" style="background-image: url('noir3.webp');"></div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn" onclick="changeTshirtSlide(-1)">&#10094;</button>
+                        <button class="carousel-btn next-btn" onclick="changeTshirtSlide(1)">&#10095;</button>
+                    </div>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="setTshirtSlide(0)"></span>
+                        <span class="dot" onclick="setTshirtSlide(1)"></span>
+                        <span class="dot" onclick="setTshirtSlide(2)"></span>
+                        <span class="dot" onclick="setTshirtSlide(3)"></span>
+                        <span class="dot" onclick="setTshirtSlide(4)"></span>
+                        <span class="dot" onclick="setTshirtSlide(5)"></span>
+                        
+                    </div>
+                </div>
+                
+                <!-- Autres gadgets -->
+                 
+                <div class="gadget-item">
+                    <div class="gadget-header">
+                        <h3>Tasse</h3>
+                    </div>
+                    <div class="gadget-image" style="background-image: url('tasse.webp');"></div>
+                </div>
+                
+                <div class="gadget-item">
+                    <div class="gadget-header">
+                        <h3>Casquettes</h3>
+                    </div>
+                    <div class="gadget-image" style="background-image: url('casquette.webp');"></div>
+                </div>
+                <div class="gadget-item">
+                    <div class="gadget-header">
+                        <h3>Porte clé</h3>
+                    </div>
+                    <div class="gadget-image" style="background-image: url('porte\ clé.webp');"></div>
+                </div>
+                <div class="gadget-item">
+                    <div class="gadget-header">
+                        <h3>Stylo</h3>
+                    </div>
+                    <div class="gadget-image" style="background-image: url('Stylo.webp');"></div>
+                </div>
+                <div class="gadget-item">
+                    <div class="gadget-header">
+                        <h3>Stickers</h3>
+                    </div>
+                    <div class="gadget-image" style="background-image: url('Sticker.webp');"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+
+    <section id="objectifs" style="background-color: #f0f4f8;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre Organisation</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Organisation</h3>
+                        <p>Veillez à la bonne tenue des différentes activités et assurer une coordination efficace entre tous les membres.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Communication</h3>
+                        <p>Dynamiser les pages du club et accroître sa visibilité auprès de la communauté académique et professionnelle. <br>Nous avons des pages Linkedln, Facebook et une chaîne WhatsApp</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Finances</h3>
+                        <p>Gérer les ressources du club à travers les cotisations des membres et la vente de gadgets promotionnels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo">ENSEA<span> DATA SCIENCE CLUB</span></div>
+            <p>Façonner l'avenir avec les données</p>
+            <p>&copy; 2025 Ensea data science club . </p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navigation = document.getElementById('navigation');
+        
+        mobileMenu.addEventListener('click', function() {
+            navigation.classList.toggle('mobile-nav-active');
+        });
+        
+        // Fermer le menu quand on clique sur un lien
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navigation.classList.remove('mobile-nav-active');
+            });
+        });
+        
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        let slideInterval;
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        // Démarre le slideshow quand la page est visible
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+        
+        // Arrête le slideshow quand la page n'est pas visible
+        function stopSlideshow() {
+            clearInterval(slideInterval);
+        }
+        
+        // Gestion de la visibilité de la page
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopSlideshow();
+            } else {
+                startSlideshow();
+            }
+        });
+        
+        // Démarrage initial du slideshow
+        startSlideshow();
+        
+        // Programme de formation - onglets
+        const programTabs = document.querySelectorAll('.program-tab');
+        const programContents = document.querySelectorAll('.program-content');
+        
+        programTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Désactiver tous les onglets et contenus
+                programTabs.forEach(t => t.classList.remove('active'));
+                programContents.forEach(c => c.classList.remove('active'));
+                
+                // Activer l'onglet cliqué et son contenu
+                this.classList.add('active');
+                const targetContent = document.getElementById(this.getAttribute('data-target'));
+                targetContent.classList.add('active');
+            });
+        });
+        
+        // Modules déroulants
+        const moduleHeaders = document.querySelectorAll('.module-header');
+        
+        moduleHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                // Toggle active class
+                this.classList.toggle('active');
+                
+                // Gérer l'ouverture/fermeture du body
+                const moduleBody = this.nextElementSibling;
+                
+                if (this.classList.contains('active')) {
+                    // Calculer la hauteur nécessaire pour le contenu
+                    const moduleContent = moduleBody.querySelector('.module-content');
+                    moduleBody.style.maxHeight = moduleContent.offsetHeight + 'px';
+                } else {
+                    moduleBody.style.maxHeight = '0';
+                }
+            });
+        });
+        
+        // Ouvrir le premier module par défaut dans chaque niveau
+        const openFirstModules = () => {
+            const firstModules = document.querySelectorAll('.program-content.active .module-header:first-child');
+            firstModules.forEach(module => {
+                module.click();
+            });
+        };
+        
+        // Amélioration du chargement des images et initialisation des modules
+        document.addEventListener('DOMContentLoaded', function() {
+            // Préchargement des images du slideshow
+            const slideImages = document.querySelectorAll('.slide');
+            slideImages.forEach(slide => {
+                const bgUrl = slide.style.backgroundImage.slice(4, -1).replace(/"/g, "");
+                if (bgUrl) {
+                    const img = new Image();
+                    img.src = bgUrl;
+                }
+            });
+            
+            // Ouvrir le premier module du niveau actif par défaut
+            openFirstModules();
+        });
+        
+        // Carrousel des tee-shirts
+        let currentTshirtSlide = 0;
+        const tshirtSlides = document.querySelectorAll('.tshirt-slide');
+        const dots = document.querySelectorAll('.carousel-dots .dot');
+        
+        function showTshirtSlide(index) {
+            // Gérer les limites
+            if (index >= tshirtSlides.length) {
+                currentTshirtSlide = 0;
+            } else if (index < 0) {
+                currentTshirtSlide = tshirtSlides.length - 1;
+            } else {
+                currentTshirtSlide = index;
+            }
+            
+            // Retirer la classe active de toutes les slides et dots
+            tshirtSlides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Ajouter la classe active à la slide et dot actuelle
+            tshirtSlides[currentTshirtSlide].classList.add('active');
+            dots[currentTshirtSlide].classList.add('active');
+        }
+        
+        function changeTshirtSlide(direction) {
+            showTshirtSlide(currentTshirtSlide + direction);
+        }
+        
+        function setTshirtSlide(index) {
+            showTshirtSlide(index);
+        }
+        
+        // Carrousels des cartes d'activités
+        const cardCarousels = {
+            conferences: { currentSlide: 0 },
+            formations: { currentSlide: 0 },
+            interclasse: { currentSlide: 0 }
+        };
+        
+        function changeCardSlide(carouselName, direction) {
+            const carousel = cardCarousels[carouselName];
+            const card = document.querySelector(`.card-carousel:nth-of-type(${getCarouselIndex(carouselName)})`);
+            const slides = card.querySelectorAll('.card-carousel-slide');
+            const dots = card.querySelectorAll('.card-carousel-dots .dot');
+            
+            // Retirer la classe active
+            slides[carousel.currentSlide].classList.remove('active');
+            dots[carousel.currentSlide].classList.remove('active');
+            
+            // Calculer le nouvel index
+            carousel.currentSlide += direction;
+            if (carousel.currentSlide >= slides.length) {
+                carousel.currentSlide = 0;
+            } else if (carousel.currentSlide < 0) {
+                carousel.currentSlide = slides.length - 1;
+            }
+            
+            // Ajouter la classe active
+            slides[carousel.currentSlide].classList.add('active');
+            dots[carousel.currentSlide].classList.add('active');
+        }
+        
+        function setCardSlide(carouselName, index) {
+            const carousel = cardCarousels[carouselName];
+            const card = document.querySelector(`.card-carousel:nth-of-type(${getCarouselIndex(carouselName)})`);
+            const slides = card.querySelectorAll('.card-carousel-slide');
+            const dots = card.querySelectorAll('.card-carousel-dots .dot');
+            
+            // Retirer la classe active
+            slides[carousel.currentSlide].classList.remove('active');
+            dots[carousel.currentSlide].classList.remove('active');
+            
+            // Définir le nouvel index
+            carousel.currentSlide = index;
+            
+            // Ajouter la classe active
+            slides[carousel.currentSlide].classList.add('active');
+            dots[carousel.currentSlide].classList.add('active');
+        }
+        
+        function getCarouselIndex(carouselName) {
+            // Retourne l'index du carrousel dans la grille
+            // conferences = 3, formations = 5, interclasse = 7
+            const indices = {
+                conferences: 3,
+                formations: 5,
+                interclasse: 7
+            };
+            return indices[carouselName];
+        }
+        
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, // Ajustement pour le header fixe
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
