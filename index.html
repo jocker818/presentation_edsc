@@ -24,6 +24,7 @@ body {
     background-color: var(--light-color);
     color: var(--dark-color);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 header {
@@ -126,6 +127,7 @@ nav ul li a:hover {
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 1s ease-in-out;
 }
@@ -168,6 +170,7 @@ nav ul li a:hover {
     width: 150px;
     height: auto;
     margin-right: 1rem;
+    max-width: 100%;
 }
 
 .campaign-title {
@@ -255,6 +258,7 @@ section {
     height: 200px;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .card-content {
@@ -305,6 +309,7 @@ section {
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
@@ -358,7 +363,7 @@ section {
     background-color: rgba(9, 45, 96, 0.05);
 }
 
-.card-carousel-dots .dot {
+.card-carousel-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -367,12 +372,12 @@ section {
     transition: all 0.3s;
 }
 
-.card-carousel-dots .dot:hover {
+.card-carousel-dot:hover {
     background-color: #9ca3af;
     transform: scale(1.2);
 }
 
-.card-carousel-dots .dot.active {
+.card-carousel-dot.active {
     background-color: var(--accent-color);
     width: 24px;
     border-radius: 5px;
@@ -639,9 +644,10 @@ section {
 
 .gadget-image {
     height: 300px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #f9f9f9;
 }
 
 .tshirt-carousel {
@@ -660,8 +666,10 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f9f9f9;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
@@ -930,7 +938,8 @@ footer p {
     }
     
     .slide {
-        background-size: 100% 100%;
+        background-size: cover;
+        background-position: center;
     }
     
     .gadget-image,
@@ -967,12 +976,12 @@ footer p {
         font-size: 0.85rem;
     }
     
-    .card-carousel-dots .dot {
+    .card-carousel-dot {
         width: 8px;
         height: 8px;
     }
     
-    .card-carousel-dots .dot.active {
+    .card-carousel-dot.active {
         width: 20px;
     }
 }
@@ -992,9 +1001,10 @@ footer p {
                 <ul>
                     <li><a href="#accueil">Accueil</a></li>
                     <li><a href="#bureau">Membres du Bureau</a></li>
-                    <li><a href="#vision">Notre Bureau</a></li>
+                    <li><a href="#vision">Notre Club</a></li>
                     <li><a href="#programme">Programme</a></li>
                     <li><a href="#activites">Activités</a></li>
+                    <li><a href="#gadgets">Gadgets</a></li>
                 </ul>
             </nav>
         </div>
@@ -1010,7 +1020,6 @@ footer p {
             <div class="slide" style="background-image: url('5.webp');"></div>
             <div class="slide" style="background-image: url('6.webp');"></div>
             <div class="slide" style="background-image: url('1.webp');"></div>
-
         </div>
         <div class="overlay"></div>
         <div class="club-header">
@@ -1402,7 +1411,7 @@ footer p {
             </div>
             
             <!-- Conférences et Collaborations avec carrousel -->
-            <div class="card card-carousel">
+            <div class="card card-carousel" id="conferences-carousel">
                 <div class="card-carousel-wrapper">
                     <div class="card-carousel-slide active" style="background-image: url('confer.webp');"></div>
                     <div class="card-carousel-slide" style="background-image: url('conference1.webp');"></div>
@@ -1411,15 +1420,15 @@ footer p {
                     <div class="card-carousel-slide" style="background-image: url('conference5.webp');"></div>
                 </div>
                 <div class="card-carousel-controls">
-                    <button class="card-carousel-btn prev-btn" onclick="changeCardSlide('conferences', -1)">&#10094;</button>
-                    <button class="card-carousel-btn next-btn" onclick="changeCardSlide('conferences', 1)">&#10095;</button>
+                    <button class="card-carousel-btn prev-btn" data-carousel="conferences">&#10094;</button>
+                    <button class="card-carousel-btn next-btn" data-carousel="conferences">&#10095;</button>
                 </div>
                 <div class="card-carousel-dots">
-                    <span class="dot active" onclick="setCardSlide('conferences', 0)"></span>
-                    <span class="dot" onclick="setCardSlide('conferences', 1)"></span>
-                    <span class="dot" onclick="setCardSlide('conferences', 2)"></span>
-                    <span class="dot" onclick="setCardSlide('conferences', 3)"></span>
-                    <span class="dot" onclick="setCardSlide('conferences', 4)"></span>
+                    <span class="card-carousel-dot active" data-carousel="conferences" data-index="0"></span>
+                    <span class="card-carousel-dot" data-carousel="conferences" data-index="1"></span>
+                    <span class="card-carousel-dot" data-carousel="conferences" data-index="2"></span>
+                    <span class="card-carousel-dot" data-carousel="conferences" data-index="3"></span>
+                    <span class="card-carousel-dot" data-carousel="conferences" data-index="4"></span>
                 </div>
                 <div class="card-content">
                     <h3>Conférences et Collaborations</h3>
@@ -1436,7 +1445,7 @@ footer p {
             </div>
             
             <!-- Formations avec carrousel -->
-            <div class="card card-carousel">
+            <div class="card card-carousel" id="formations-carousel">
                 <div class="card-carousel-wrapper">
                     <div class="card-carousel-slide active" style="background-image: url('forma3.webp');"></div>
                     <div class="card-carousel-slide" style="background-image: url('formation.webp');"></div>
@@ -1444,14 +1453,14 @@ footer p {
                     <div class="card-carousel-slide" style="background-image: url('forma2.webp');"></div>
                 </div>
                 <div class="card-carousel-controls">
-                    <button class="card-carousel-btn prev-btn" onclick="changeCardSlide('formations', -1)">&#10094;</button>
-                    <button class="card-carousel-btn next-btn" onclick="changeCardSlide('formations', 1)">&#10095;</button>
+                    <button class="card-carousel-btn prev-btn" data-carousel="formations">&#10094;</button>
+                    <button class="card-carousel-btn next-btn" data-carousel="formations">&#10095;</button>
                 </div>
                 <div class="card-carousel-dots">
-                    <span class="dot active" onclick="setCardSlide('formations', 0)"></span>
-                    <span class="dot" onclick="setCardSlide('formations', 1)"></span>
-                    <span class="dot" onclick="setCardSlide('formations', 2)"></span>
-                    <span class="dot" onclick="setCardSlide('formations', 3)"></span>
+                    <span class="card-carousel-dot active" data-carousel="formations" data-index="0"></span>
+                    <span class="card-carousel-dot" data-carousel="formations" data-index="1"></span>
+                    <span class="card-carousel-dot" data-carousel="formations" data-index="2"></span>
+                    <span class="card-carousel-dot" data-carousel="formations" data-index="3"></span>
                 </div>
                 <div class="card-content">
                     <h3>Formations</h3>
@@ -1468,7 +1477,7 @@ footer p {
             </div>
             
             <!-- Interclasse EDSC avec carrousel -->
-            <div class="card card-carousel">
+            <div class="card card-carousel" id="interclasse-carousel">
                 <div class="card-carousel-wrapper">
                     <div class="card-carousel-slide active" style="background-image: url('inter.webp');"></div>
                     <div class="card-carousel-slide" style="background-image: url('inter1.webp');"></div>
@@ -1477,15 +1486,15 @@ footer p {
                     <div class="card-carousel-slide" style="background-image: url('inter5.webp');"></div>
                 </div>
                 <div class="card-carousel-controls">
-                    <button class="card-carousel-btn prev-btn" onclick="changeCardSlide('interclasse', -1)">&#10094;</button>
-                    <button class="card-carousel-btn next-btn" onclick="changeCardSlide('interclasse', 1)">&#10095;</button>
+                    <button class="card-carousel-btn prev-btn" data-carousel="interclasse">&#10094;</button>
+                    <button class="card-carousel-btn next-btn" data-carousel="interclasse">&#10095;</button>
                 </div>
                 <div class="card-carousel-dots">
-                    <span class="dot active" onclick="setCardSlide('interclasse', 0)"></span>
-                    <span class="dot" onclick="setCardSlide('interclasse', 1)"></span>
-                    <span class="dot" onclick="setCardSlide('interclasse', 2)"></span>
-                    <span class="dot" onclick="setCardSlide('interclasse', 3)"></span>
-                    <span class="dot" onclick="setCardSlide('interclasse', 4)"></span>
+                    <span class="card-carousel-dot active" data-carousel="interclasse" data-index="0"></span>
+                    <span class="card-carousel-dot" data-carousel="interclasse" data-index="1"></span>
+                    <span class="card-carousel-dot" data-carousel="interclasse" data-index="2"></span>
+                    <span class="card-carousel-dot" data-carousel="interclasse" data-index="3"></span>
+                    <span class="card-carousel-dot" data-carousel="interclasse" data-index="4"></span>
                 </div>
                 <div class="card-content">
                     <h3>Interclasse EDSC</h3>
@@ -1512,7 +1521,7 @@ footer p {
             
             <div class="gadgets-grid">
                 <!-- Tee-shirts avec carrousel -->
-                <div class="gadget-item tshirt-carousel">
+                <div class="gadget-item tshirt-carousel" id="tshirt-carousel">
                     <div class="gadget-header">
                         <h3>Tee-shirts et Polo EDSc</h3>
                     </div>
@@ -1525,17 +1534,16 @@ footer p {
                          <div class="tshirt-slide" style="background-image: url('noir3.webp');"></div>
                     </div>
                     <div class="carousel-controls">
-                        <button class="carousel-btn prev-btn" onclick="changeTshirtSlide(-1)">&#10094;</button>
-                        <button class="carousel-btn next-btn" onclick="changeTshirtSlide(1)">&#10095;</button>
+                        <button class="carousel-btn prev-btn" data-carousel="tshirt">&#10094;</button>
+                        <button class="carousel-btn next-btn" data-carousel="tshirt">&#10095;</button>
                     </div>
                     <div class="carousel-dots">
-                        <span class="dot active" onclick="setTshirtSlide(0)"></span>
-                        <span class="dot" onclick="setTshirtSlide(1)"></span>
-                        <span class="dot" onclick="setTshirtSlide(2)"></span>
-                        <span class="dot" onclick="setTshirtSlide(3)"></span>
-                        <span class="dot" onclick="setTshirtSlide(4)"></span>
-                        <span class="dot" onclick="setTshirtSlide(5)"></span>
-                        
+                        <span class="dot active" data-carousel="tshirt" data-index="0"></span>
+                        <span class="dot" data-carousel="tshirt" data-index="1"></span>
+                        <span class="dot" data-carousel="tshirt" data-index="2"></span>
+                        <span class="dot" data-carousel="tshirt" data-index="3"></span>
+                        <span class="dot" data-carousel="tshirt" data-index="4"></span>
+                        <span class="dot" data-carousel="tshirt" data-index="5"></span>
                     </div>
                 </div>
                 
@@ -1677,6 +1685,9 @@ footer p {
                 this.classList.add('active');
                 const targetContent = document.getElementById(this.getAttribute('data-target'));
                 targetContent.classList.add('active');
+                
+                // Ouvrir le premier module du niveau actif
+                openFirstModule();
             });
         });
         
@@ -1701,13 +1712,16 @@ footer p {
             });
         });
         
-        // Ouvrir le premier module par défaut dans chaque niveau
-        const openFirstModules = () => {
-            const firstModules = document.querySelectorAll('.program-content.active .module-header:first-child');
-            firstModules.forEach(module => {
-                module.click();
-            });
-        };
+        // Ouvrir le premier module par défaut dans le niveau actif
+        function openFirstModule() {
+            const activeContent = document.querySelector('.program-content.active');
+            if (activeContent) {
+                const firstModule = activeContent.querySelector('.module-header:first-child');
+                if (firstModule && !firstModule.classList.contains('active')) {
+                    firstModule.click();
+                }
+            }
+        }
         
         // Amélioration du chargement des images et initialisation des modules
         document.addEventListener('DOMContentLoaded', function() {
@@ -1722,99 +1736,113 @@ footer p {
             });
             
             // Ouvrir le premier module du niveau actif par défaut
-            openFirstModules();
+            openFirstModule();
         });
         
-        // Carrousel des tee-shirts
-        let currentTshirtSlide = 0;
-        const tshirtSlides = document.querySelectorAll('.tshirt-slide');
-        const dots = document.querySelectorAll('.carousel-dots .dot');
-        
-        function showTshirtSlide(index) {
-            // Gérer les limites
-            if (index >= tshirtSlides.length) {
-                currentTshirtSlide = 0;
-            } else if (index < 0) {
-                currentTshirtSlide = tshirtSlides.length - 1;
-            } else {
-                currentTshirtSlide = index;
+        // Système de carrousel générique avec défilement automatique
+        function initCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.tshirt-slide, .card-carousel-slide');
+            const dots = carousel.querySelectorAll('.dot, .card-carousel-dot');
+            const prevBtn = carousel.querySelector('.prev-btn');
+            const nextBtn = carousel.querySelector('.next-btn');
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            let autoPlayInterval;
+            
+            function showSlide(index) {
+                // Retirer la classe active de toutes les slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Gérer les limites
+                if (index >= totalSlides) {
+                    currentIndex = 0;
+                } else if (index < 0) {
+                    currentIndex = totalSlides - 1;
+                } else {
+                    currentIndex = index;
+                }
+                
+                // Ajouter la classe active à la slide et dot actuelle
+                slides[currentIndex].classList.add('active');
+                if (dots[currentIndex]) {
+                    dots[currentIndex].classList.add('active');
+                }
             }
             
-            // Retirer la classe active de toutes les slides et dots
-            tshirtSlides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            // Ajouter la classe active à la slide et dot actuelle
-            tshirtSlides[currentTshirtSlide].classList.add('active');
-            dots[currentTshirtSlide].classList.add('active');
-        }
-        
-        function changeTshirtSlide(direction) {
-            showTshirtSlide(currentTshirtSlide + direction);
-        }
-        
-        function setTshirtSlide(index) {
-            showTshirtSlide(index);
-        }
-        
-        // Carrousels des cartes d'activités
-        const cardCarousels = {
-            conferences: { currentSlide: 0 },
-            formations: { currentSlide: 0 },
-            interclasse: { currentSlide: 0 }
-        };
-        
-        function changeCardSlide(carouselName, direction) {
-            const carousel = cardCarousels[carouselName];
-            const card = document.querySelector(`.card-carousel:nth-of-type(${getCarouselIndex(carouselName)})`);
-            const slides = card.querySelectorAll('.card-carousel-slide');
-            const dots = card.querySelectorAll('.card-carousel-dots .dot');
-            
-            // Retirer la classe active
-            slides[carousel.currentSlide].classList.remove('active');
-            dots[carousel.currentSlide].classList.remove('active');
-            
-            // Calculer le nouvel index
-            carousel.currentSlide += direction;
-            if (carousel.currentSlide >= slides.length) {
-                carousel.currentSlide = 0;
-            } else if (carousel.currentSlide < 0) {
-                carousel.currentSlide = slides.length - 1;
+            function nextSlide() {
+                showSlide(currentIndex + 1);
             }
             
-            // Ajouter la classe active
-            slides[carousel.currentSlide].classList.add('active');
-            dots[carousel.currentSlide].classList.add('active');
-        }
-        
-        function setCardSlide(carouselName, index) {
-            const carousel = cardCarousels[carouselName];
-            const card = document.querySelector(`.card-carousel:nth-of-type(${getCarouselIndex(carouselName)})`);
-            const slides = card.querySelectorAll('.card-carousel-slide');
-            const dots = card.querySelectorAll('.card-carousel-dots .dot');
+            function prevSlide() {
+                showSlide(currentIndex - 1);
+            }
             
-            // Retirer la classe active
-            slides[carousel.currentSlide].classList.remove('active');
-            dots[carousel.currentSlide].classList.remove('active');
+            // Défilement automatique
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlide, 4000); // Change toutes les 4 secondes
+            }
             
-            // Définir le nouvel index
-            carousel.currentSlide = index;
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
             
-            // Ajouter la classe active
-            slides[carousel.currentSlide].classList.add('active');
-            dots[carousel.currentSlide].classList.add('active');
-        }
-        
-        function getCarouselIndex(carouselName) {
-            // Retourne l'index du carrousel dans la grille
-            // conferences = 3, formations = 5, interclasse = 7
-            const indices = {
-                conferences: 3,
-                formations: 5,
-                interclasse: 7
+            // Événements pour les boutons
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    stopAutoPlay();
+                    prevSlide();
+                    // Redémarrer l'auto-play après un délai
+                    setTimeout(startAutoPlay, 8000);
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    stopAutoPlay();
+                    nextSlide();
+                    // Redémarrer l'auto-play après un délai
+                    setTimeout(startAutoPlay, 8000);
+                });
+            }
+            
+            // Événements pour les dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    stopAutoPlay();
+                    showSlide(index);
+                    // Redémarrer l'auto-play après un délai
+                    setTimeout(startAutoPlay, 8000);
+                });
+            });
+            
+            // Arrêter l'auto-play quand la souris est sur le carrousel
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+            
+            // Démarrer l'auto-play initial
+            startAutoPlay();
+            
+            // Retourner l'objet carrousel pour un contrôle externe si nécessaire
+            return {
+                next: nextSlide,
+                prev: prevSlide,
+                goTo: showSlide,
+                currentIndex: () => currentIndex,
+                startAutoPlay: startAutoPlay,
+                stopAutoPlay: stopAutoPlay
             };
-            return indices[carouselName];
         }
+        
+        // Initialiser tous les carrousels
+        const tshirtCarousel = initCarousel('tshirt-carousel');
+        const conferencesCarousel = initCarousel('conferences-carousel');
+        const formationsCarousel = initCarousel('formations-carousel');
+        const interclasseCarousel = initCarousel('interclasse-carousel');
         
         // Navigation fluide
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
